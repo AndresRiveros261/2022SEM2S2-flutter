@@ -11,10 +11,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-String textresultado = ""; 
+  String textresultado = "";
 
-final textEntrada = TextEditingController();
+  String txtnumero = "";
+  String txtoperacion = "";
+  String txtresultadoOperacion = "";
+  String TextoperacionTotal = "";
 
+  final textEntrada = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,79 +55,191 @@ final textEntrada = TextEditingController();
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-
-                  filaBotones([
-                    BotonModel(titulo: "%", metodo: (){ print("porcentaje");} ),
-                    BotonModel(titulo: "CE", metodo: (){ print("eliminar");} ),
-                    BotonModel(titulo: "C", metodo: (){ print("tres");} ),
-                    BotonModel(titulo: "<=", metodo: (){ print("+");} ),
-                  ]),
-
-                  filaBotones([
-                    BotonModel(titulo: "1/X", metodo: (){ print("fraccionario");} ),
-                    BotonModel(titulo: "X2", metodo: (){ print("potencia");} ),
-                    BotonModel(titulo: "Raiz", metodo: (){ print("tres");} ),
-                    BotonModel(titulo: "/", metodo: (){ print("+");} ),
-                  ]),
-
-                  
-                     filaBotones([
-                    BotonModel(titulo: "7", metodo: (){ print("siete");} ),
-                    BotonModel(titulo: "8", metodo: (){ print("ocho");} ),
-                    BotonModel(titulo: "9", metodo: (){ print("nueve");} ),
-                    BotonModel(titulo: "x", metodo: (){ print("x");} ),
-                  ]),
-
-                  filaBotones([
-                    BotonModel(titulo: "4", metodo: (){ print("cuatro");} ),
-                    BotonModel(titulo: "5", metodo: (){ print("cinco");} ),
-                    BotonModel(titulo: "6", metodo: (){ print("seis");} ),
-                    BotonModel(titulo: "-", metodo: (){ print("-");} ),
-                  ]),
-
                   filaBotones([
                     BotonModel(
-                      titulo: "1", 
-                      metodo: () {
-                        setState(() {
-                        textresultado += "1";
-                     });
-                      }),
-
+                        titulo: "%",
+                        metodo: () {
+                          setState(() {
+                            txtnumero += "1";
+                          });
+                        }),
                     BotonModel(
-                      titulo: "2", 
-                      metodo: () {
-                        setState(() {
-                        textresultado += "2";
-                     });
-                      }),
-
-                     BotonModel(
-                      titulo: "3", 
-                      metodo: () {
-                        setState(() {
-                        textresultado += "3";
-                     });
-                      }),
-
-
+                        titulo: "CE",
+                        metodo: () {
+                          setState(() {
+                            txtnumero += "1";
+                          });
+                        }),
                     BotonModel(
-                      titulo: "+", 
-                      metodo: () {
-                        setState(() {
-                        textresultado += "+";
-                     });
-                     }),
-
+                        titulo: "C",
+                        metodo: () {
+                          setState(() {
+                            txtnumero += "1";
+                          });
+                        }),
+                    BotonModel(
+                        titulo: "<-",
+                        metodo: () {
+                          setState(() {
+                            txtnumero += "1";
+                          });
+                        }),
                   ]),
-
-                     filaBotones([
-                    BotonModel(titulo: "+/-", metodo: (){ print("mas-menos");} ),
-                    BotonModel(titulo: "0", metodo: (){ print("cero");} ),
-                    BotonModel(titulo: ",", metodo: (){ print("coma");} ),
-                    BotonModel(titulo: "=", metodo: (){ print("igual");} ),
+                  filaBotones([
+                    BotonModel(
+                        titulo: "1/X",
+                        metodo: () {
+                          setState(() {
+                            txtnumero += "1";
+                          });
+                        }),
+                    BotonModel(
+                        titulo: "X^2",
+                        metodo: () {
+                          setState(() {
+                            txtnumero += "(2)^(";
+                          });
+                        }),
+                    BotonModel(
+                        titulo: "√",
+                        metodo: () {
+                          setState(() {
+                            txtoperacion += "√(";
+                          });
+                        }),
+                    BotonModel(
+                        titulo: "/",
+                        metodo: () {
+                          setState(() {
+                            txtoperacion += "/";
+                          });
+                        }),
                   ]),
-
+                  filaBotones([
+                    BotonModel(
+                        titulo: "7",
+                        metodo: () {
+                          setState(() {
+                            txtnumero += "7";
+                          });
+                        }),
+                    BotonModel(
+                        titulo: "8",
+                        metodo: () {
+                          setState(() {
+                            txtnumero += "8";
+                          });
+                        }),
+                    BotonModel(
+                        titulo: "9",
+                        metodo: () {
+                          setState(() {
+                            txtnumero += "9";
+                          });
+                        }),
+                    BotonModel(
+                        titulo: "x",
+                        metodo: () {
+                          setState(() {
+                            txtoperacion += "*";
+                          });
+                        }),
+                  ]),
+                  filaBotones([
+                    BotonModel(
+                        titulo: "4",
+                        metodo: () {
+                          setState(() {
+                            txtnumero += "4";
+                          });
+                        }),
+                    BotonModel(
+                        titulo: "5",
+                        metodo: () {
+                          setState(() {
+                            txtnumero += "5";
+                          });
+                        }),
+                    BotonModel(
+                        titulo: "6",
+                        metodo: () {
+                          setState(() {
+                            txtnumero += "6";
+                          });
+                        }),
+                    BotonModel(
+                        titulo: "-",
+                        metodo: () {
+                          setState(() {
+                            txtoperacion += "-";
+                          });
+                        }),
+                  ]),
+                  filaBotones([
+                    BotonModel(
+                        titulo: "1",
+                        metodo: () {
+                          setState(() {
+                            txtnumero += "1";
+                          });
+                        }),
+                    BotonModel(
+                        titulo: "2",
+                        metodo: () {
+                          setState(() {
+                            txtnumero += "2";
+                          });
+                        }),
+                    BotonModel(
+                        titulo: "3",
+                        metodo: () {
+                          setState(() {
+                            txtnumero += "3";
+                          });
+                        }),
+                    BotonModel(
+                        titulo: "+",
+                        metodo: () {
+                          setState(() {
+                            txtoperacion += "+";
+                          });
+                        }),
+                  ]),
+                  filaBotones([
+                    BotonModel(
+                        titulo: "+/-",
+                        metodo: () {
+                          setState(() {
+                            txtoperacion += "+";
+                          });
+                        }),
+                    BotonModel(
+                        titulo: "0",
+                        metodo: () {
+                          setState(() {
+                            txtnumero += "0";
+                          });
+                        }),
+                    BotonModel(
+                        titulo: ",",
+                        metodo: () {
+                          setState(() {
+                            txtoperacion += ",";
+                          });
+                        }),
+                    BotonModel(
+                        titulo: "=",
+                        metodo: () {
+                          Parser p = new Parser();
+                          ContextModel cm = new ContextModel();
+                          Expression exp = p.parse(txtnumero);
+                          setState(() {
+                            txtoperacion = exp
+                                .evaluate(EvaluationType.REAL, cm)
+                                  txtresultadoOperacion = exp.toString();
+                          });
+                        }),
+                  ]),
                 ],
               ),
             ),
