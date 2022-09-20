@@ -1,5 +1,6 @@
 import 'package:calculadora/models/boton.models.dart';
 import 'package:calculadora/widgets/filabotones.widget.dart';
+import 'package:calculadora/widgets/operaciones.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
@@ -11,12 +12,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<String> datos = [];
+  List<String> datosR = [];
   String textresultado = "";
-
   String txtnumero = "";
   String txtoperacion = "";
   String txtresultadoOperacion = "";
-  String TextoperacionTotal = "";
+  String Operacionresultado = "";
 
   final textEntrada = TextEditingController();
 
@@ -27,24 +29,54 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Container(
-              //height: 100,
-              color: Color.fromARGB(255, 146, 145, 141),
-              child: Row(
+              color: Colors.black12,
+              padding: const EdgeInsets.all(20),
+              child: Column(
                 children: [
-                  Text("Operaciones"),
+                  Center(
+                    child: Column(
+                      children: [
+                        Column(
+                          children: [
+                            Container(
+                                padding: const EdgeInsets.all(20),
+                                alignment: Alignment.center,
+                                child: operaciones(datosR)),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
-          Container(
-            height: 100,
-            color: Color.fromARGB(255, 162, 164, 167),
-            child: Row(
-              children: [
-                Text(textresultado),
-              ],
+          Expanded(
+            flex: 1,
+            child: Container(
+              color: Colors.blueGrey,
+              child: Row(
+                children: [
+                  Column(
+                    children: [
+                      Column(
+                        children: [
+                          Container(
+                              padding: const EdgeInsets.all(10),
+                              alignment: Alignment.centerRight,
+                              child: Text(
+                                txtnumero,
+                                style: TextStyle(
+                                    fontSize: 40, fontWeight: FontWeight.bold),
+                              )),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           Expanded(
@@ -60,28 +92,37 @@ class _HomePageState extends State<HomePage> {
                         titulo: "%",
                         metodo: () {
                           setState(() {
-                            txtnumero += "1";
+                            if (txtnumero != "") {
+                              double porcentaje = double.parse(txtnumero) / 100;
+                              txtnumero = porcentaje.toString();
+                              txtresultadoOperacion += txtnumero;
+                              txtnumero = "";
+                            }
                           });
                         }),
                     BotonModel(
                         titulo: "CE",
                         metodo: () {
                           setState(() {
-                            txtnumero += "1";
+                            txtnumero += "";
                           });
                         }),
                     BotonModel(
                         titulo: "C",
                         metodo: () {
                           setState(() {
-                            txtnumero += "1";
+                            txtnumero = "";
+                            txtoperacion = "";
+                            txtresultadoOperacion = "";
                           });
                         }),
                     BotonModel(
                         titulo: "<-",
                         metodo: () {
                           setState(() {
-                            txtnumero += "1";
+                            txtnumero = (txtnumero.length > 0)
+                                ? (txtnumero.substring(0, txtnumero.length - 1))
+                                : "";
                           });
                         }),
                   ]),
@@ -97,21 +138,36 @@ class _HomePageState extends State<HomePage> {
                         titulo: "X^2",
                         metodo: () {
                           setState(() {
-                            txtnumero += "(2)^(";
+                            txtoperacion += txtnumero;
+                            if (txtnumero != "") {
+                              txtresultadoOperacion += txtnumero;
+                            }
+                            txtresultadoOperacion += txtoperacion;
+                            txtnumero = "";
                           });
                         }),
                     BotonModel(
                         titulo: "√",
                         metodo: () {
                           setState(() {
-                            txtoperacion += "√(";
+                            txtoperacion = "sqrt(";
+                            if (txtnumero != "") {
+                              txtresultadoOperacion += txtnumero;
+                            }
+                            txtresultadoOperacion += txtoperacion;
+                            txtnumero = "";
                           });
                         }),
                     BotonModel(
                         titulo: "/",
                         metodo: () {
                           setState(() {
-                            txtoperacion += "/";
+                            txtoperacion = "/";
+                            if (txtnumero != "") {
+                              txtresultadoOperacion += txtnumero;
+                            }
+                            txtresultadoOperacion += txtoperacion;
+                            txtnumero = "";
                           });
                         }),
                   ]),
@@ -141,7 +197,12 @@ class _HomePageState extends State<HomePage> {
                         titulo: "x",
                         metodo: () {
                           setState(() {
-                            txtoperacion += "*";
+                            txtoperacion = "*";
+                            if (txtnumero != "") {
+                              txtresultadoOperacion += txtnumero;
+                            }
+                            txtresultadoOperacion += txtoperacion;
+                            txtnumero = "";
                           });
                         }),
                   ]),
@@ -171,7 +232,12 @@ class _HomePageState extends State<HomePage> {
                         titulo: "-",
                         metodo: () {
                           setState(() {
-                            txtoperacion += "-";
+                            txtoperacion = "-";
+                            if (txtnumero != "") {
+                              txtresultadoOperacion += txtnumero;
+                            }
+                            txtresultadoOperacion += txtoperacion;
+                            txtnumero = "";
                           });
                         }),
                   ]),
@@ -201,7 +267,12 @@ class _HomePageState extends State<HomePage> {
                         titulo: "+",
                         metodo: () {
                           setState(() {
-                            txtoperacion += "+";
+                            txtoperacion = "+";
+                            if (txtnumero != "") {
+                              txtresultadoOperacion += txtnumero;
+                            }
+                            txtresultadoOperacion += txtoperacion;
+                            txtnumero = "";
                           });
                         }),
                   ]),
@@ -230,13 +301,25 @@ class _HomePageState extends State<HomePage> {
                     BotonModel(
                         titulo: "=",
                         metodo: () {
-                          Parser p = new Parser();
-                          ContextModel cm = new ContextModel();
-                          Expression exp = p.parse(txtnumero);
                           setState(() {
-                            txtoperacion = exp
-                                .evaluate(EvaluationType.REAL, cm)
-                                  txtresultadoOperacion = exp.toString();
+                            if (txtnumero != "") {
+                              txtresultadoOperacion += txtnumero;
+                            }
+                            String resultado = txtresultadoOperacion;
+                            {
+                              Parser p = Parser();
+                              Expression exp = p.parse(resultado);
+                              ContextModel cm = ContextModel();
+                              double eval =
+                                  exp.evaluate(EvaluationType.REAL, cm);
+                              resultado = eval.toString();
+                              txtresultadoOperacion += "= $resultado";
+                              datos.add(txtresultadoOperacion);
+                              datosR = datos.reversed.toList();
+                              txtresultadoOperacion = "";
+                              txtnumero = "";
+                              txtoperacion = "";
+                            }
                           });
                         }),
                   ]),
